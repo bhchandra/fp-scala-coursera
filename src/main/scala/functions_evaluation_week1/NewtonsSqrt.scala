@@ -11,19 +11,19 @@ object NewtonsSqrt extends App {
 
   def sqrt(x: Double): Double = {
 
-    def sqrtIter(guess: Double, x: Double): Double =
-      if (isGoodEnough(guess, x)) guess
-      else sqrtIter(improve(guess, x), x)
+    def sqrtIter(guess: Double): Double =
+      if (isGoodEnough(guess)) guess
+      else sqrtIter(improve(guess))
 
-    def isGoodEnough(guess: Double, x: Double): Boolean = {
+    def isGoodEnough(guess: Double): Boolean = {
       val diff = guess * guess - x
       Math.abs(diff) / x < 0.001
     }
 
-    def improve(guess: Double, x: Double): Double =
+    def improve(guess: Double): Double =
       (guess + x / guess) / 2
 
-    sqrtIter(1.0, x)
+    sqrtIter(1.0)
   }
 
 
@@ -32,7 +32,6 @@ object NewtonsSqrt extends App {
   println(sqrt(4)) // prints 2.0000000929222947
 
   println(sqrt(6)) //prints 2.4494943716069653
-
 
 
   //Q. Why is isGoodEnough bad for small numbers and can lead to non-termination of very large numbers.
