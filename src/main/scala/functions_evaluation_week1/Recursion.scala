@@ -3,10 +3,10 @@ package functions_evaluation_week1
 object Recursion extends App {
 
   /**
-    * 1
-    * 1 1
-    * 1 2 1
-    * 1 3 3 1
+    *     1
+    *    1 1
+    *   1 2 1
+    *  1 3 3 1
     * 1 4 6 4 1
     * ...
     * Computes the elements of Pascal’s triangle by means of a recursive process.
