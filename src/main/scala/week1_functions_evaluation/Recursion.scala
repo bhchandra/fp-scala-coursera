@@ -1,4 +1,4 @@
-package functions_evaluation_week1
+package week1_functions_evaluation
 
 object Recursion extends App {
 

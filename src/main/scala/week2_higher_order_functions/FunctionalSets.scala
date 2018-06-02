@@ -1,4 +1,4 @@
-package higher_order_functions_week2
+package week2_higher_order_functions
 
 object FunctionalSets extends App {
 
