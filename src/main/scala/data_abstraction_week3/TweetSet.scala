@@ -125,15 +125,15 @@ class Empty extends TweetSet {
 
   def foreach(f: Tweet => Unit): Unit = ()
 
-  override def union(that: TweetSet): TweetSet = that
+  def union(that: TweetSet): TweetSet = that
 
-  override def inOrder: TweetList = Nil
+  def inOrder: TweetList = Nil
 
-  override def descendingByRetweet: TweetList = Nil
+  def descendingByRetweet: TweetList = Nil
 
-  override def mostRetweeted: Tweet = throw new NoSuchElementException
+  def mostRetweeted: Tweet = throw new NoSuchElementException
 
-  override def isEmpty: Boolean = true
+  def isEmpty: Boolean = true
 
 }
 
@@ -170,7 +170,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     right.foreach(f)
   }
 
-  override def union(that: TweetSet): TweetSet = {
+  def union(that: TweetSet): TweetSet = {
     def addToSet(set: TweetSet, list: TweetList): TweetSet = {
       if (list.isEmpty) set
       else addToSet(set.incl(list.head), list.tail)
@@ -179,15 +179,15 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     addToSet(this, that.inOrder)
   }
 
-  override def inOrder: TweetList = {
+  def inOrder: TweetList = {
     left.inOrder
       .add(elem)
       .append(right.inOrder)
   }
 
-  override def descendingByRetweet: TweetList = Nil add mostRetweeted
+  def descendingByRetweet: TweetList = Nil add mostRetweeted
 
-  override def mostRetweeted: Tweet = {
+  def mostRetweeted: Tweet = {
     if (!left.isEmpty && !right.isEmpty) {
       val mostLeft: Tweet = left.mostRetweeted
       val mostRight: Tweet = right.mostRetweeted
@@ -207,8 +207,7 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
     else elem
   }
 
-  override def isEmpty: Boolean = false
-
+  def isEmpty: Boolean = false
 
 }
 
