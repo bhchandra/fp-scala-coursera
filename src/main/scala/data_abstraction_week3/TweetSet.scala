@@ -185,7 +185,19 @@ class NonEmpty(elem: Tweet, left: TweetSet, right: TweetSet) extends TweetSet {
       .append(right.inOrder)
   }
 
-  def descendingByRetweet: TweetList = Nil add mostRetweeted
+  def descendingByRetweet: TweetList = {
+
+    def loop(set: TweetSet, list: TweetList): TweetList = {
+      if (set.isEmpty) list
+      else {
+        val m = set.mostRetweeted
+        loop(set.remove(m), list add m)
+      }
+    }
+
+    val m = mostRetweeted
+    loop(this.remove(m), Nil add m)
+  }
 
   def mostRetweeted: Tweet = {
     if (!left.isEmpty && !right.isEmpty) {
@@ -269,7 +281,11 @@ object GoogleVsApple {
   val google = List("android", "Android", "galaxy", "Galaxy", "nexus", "Nexus")
   val apple = List("ios", "iOS", "iphone", "iPhone", "ipad", "iPad")
 
-  val allTweets: TweetSet = new Empty incl (new Tweet("a", "Android", 20)) incl (new Tweet("a", "iphone", 10))
+  val allTweets: TweetSet = new Empty incl
+    new Tweet("a", "Android", 10) incl
+    new Tweet("b", "iphone", 10) incl
+    new Tweet("c", "what", 400) incl
+    new Tweet("d", "iOS", 300)
 
   lazy val googleTweets: TweetSet = allTweets.filter(tw => google.exists(txt => tw.text.contains(txt)))
   lazy val appleTweets: TweetSet = allTweets.filter(tw => apple.exists(txt => tw.text.contains(txt)))
@@ -283,6 +299,6 @@ object GoogleVsApple {
 
 object Main extends App {
   // Print the trending tweets
-  GoogleVsApple.trending foreach println
+  GoogleVsApple.trending foreach println //will not print "new Tweet("c", "what", 400)"
 }
 
