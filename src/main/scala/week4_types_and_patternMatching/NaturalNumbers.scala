@@ -30,6 +30,7 @@ object NaturalNumbers {
 
     override def -(that: Nat): Nat = throw new UnsupportedOperationException
 
+    //value and toString are added only to verify the correctness of the program visually
     override def value: Int = 0
 
     override def toString: String = value.toString
@@ -42,6 +43,9 @@ object NaturalNumbers {
 
     override def successor: Nat = this + new Succ(Zero)
 
+    /**
+      * To add two Nats, we are adding both the numbers to zero in a loop until both the Nats are reduced to zero.
+      */
     override def +(that: Nat): Nat = {
 
       def add(n1: Nat, n2: Nat, acc: Nat): Nat = {
@@ -54,6 +58,9 @@ object NaturalNumbers {
       add(this, that, Zero)
     }
 
+    /**
+      * subtraction is a little tricky, keep reducing both the numbers to zero and but do not add 1 to acc, until n2 is zero.
+      */
     override def -(that: Nat): Nat = {
       def subtract(n1: Nat, n2: Nat, acc: Nat): Nat = {
         if (n1.isZero && n2.isZero) acc
@@ -65,11 +72,15 @@ object NaturalNumbers {
       subtract(this, that, Zero)
     }
 
+    /**
+      * @return int representation of the Nat
+      */
     override def value: Int = {
       def loop(n: Nat, acc: Int): Int = {
         if (n.isZero) acc
         else loop(n.predecessor, acc + 1)
       }
+
       loop(this, 0)
     }
 
