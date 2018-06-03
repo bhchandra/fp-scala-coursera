@@ -28,7 +28,7 @@ object NaturalNumbers {
 
     override def +(that: Nat): Nat = that
 
-    override def -(that: Nat): Nat = throw new UnsupportedOperationException
+    override def -(that: Nat): Nat = if (that.isZero) Zero else throw new UnsupportedOperationException("negative number")
 
     //value and toString are added only to verify the correctness of the program visually
     override def value: Int = 0
