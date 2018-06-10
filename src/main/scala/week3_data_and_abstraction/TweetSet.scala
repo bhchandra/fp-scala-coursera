@@ -240,7 +240,6 @@ trait TweetList {
       tail.foreach(f)
     }
 
-  override def toString: String = "[]"
 
 }
 
@@ -255,6 +254,8 @@ object Nil extends TweetList {
   def add(elem: Tweet): TweetList = new Cons(elem, Nil)
 
   def append(list: TweetList): TweetList = list
+
+  override def toString: String = "[]"
 
 }
 
